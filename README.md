@@ -6,7 +6,7 @@ in a hacky and dirty way to provide a easy way to configure migrations paths for
 ## Configuration
 
 - Install the package by running `composer require avaibooksports/DoctrineMigrationsMultipleDatabaseBundle`
-- Go to your `config/bundles.php` file and **before** the `DoctrineMigrationsBundle` line, add:
+- Go to your `config/bundles.php` file and register the bundle:
 ```php
 AvaiBookSports\Bundle\MigrationsMutlipleDatabase\DoctrineMigrationsMultipleDatabaseBundle::class => ['all' => true],
 ```
