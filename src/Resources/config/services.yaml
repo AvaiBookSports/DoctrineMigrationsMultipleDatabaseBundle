@@ -1,0 +1,49 @@
+services:
+    doctrine.migrations_multiple_database.configuration:
+        class: AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Configuration\Configuration
+        public: true
+
+    doctrine.migrations_multiple_database.connection_configuration:
+        class: Doctrine\Migrations\Configuration\Configuration
+        public: false
+        abstract: true
+
+    doctrine.migrations_multiple_database.dependency_factory:
+        class: Doctrine\Migrations\DependencyFactory
+        public: false
+        abstract: true
+
+    AvaiBookSports\Bundle\MigrationsMutlipleDatabase\MultipleEntityManagerLoader:
+        arguments:
+            - '@doctrine.migrations_multiple_database.configuration'
+            - '@Doctrine\Persistence\ManagerRegistry'
+            - '%kernel.project_dir%'
+
+    doctrine_migrations.diff_command:
+        class: AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Command\Doctrine\MigrationsDiffCommand
+        arguments:
+            - '@AvaiBookSports\Bundle\MigrationsMutlipleDatabase\MultipleEntityManagerLoader'
+        tags: ['console.command']
+
+    # TODO
+    # doctrine_migrations.dump_schema_command:
+    # doctrine_migrations.execute_command:
+    # doctrine_migrations.generate_command:
+    # doctrine_migrations.latest_command:
+
+    doctrine_migrations.migrate_command:
+        class: AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Command\Doctrine\MigrationsMigrateCommand
+        arguments:
+            - '@AvaiBookSports\Bundle\MigrationsMutlipleDatabase\MultipleEntityManagerLoader'
+        tags: ['console.command']
+
+    # TODO
+    # doctrine_migrations.rollup_command:
+    # doctrine_migrations.status_command:
+    # doctrine_migrations.up_to_date_command:
+
+    doctrine_migrations.version_command:
+        class: AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Command\Doctrine\MigrationsVersionCommand
+        arguments:
+            - '@AvaiBookSports\Bundle\MigrationsMutlipleDatabase\MultipleEntityManagerLoader'
+        tags: ['console.command']

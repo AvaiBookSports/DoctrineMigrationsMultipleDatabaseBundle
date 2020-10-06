@@ -1,0 +1,10 @@
+parameters:
+    level: max
+    paths:
+        - src
+    ignoreErrors:
+        - '#Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition::children\(\).#'
+        - '#should be contravariant with parameter \$configs \(array\) of method Symfony\\Component\\DependencyInjection\\Extension\\ExtensionInterface::load\(\)#'
+
+includes:
+    - vendor/phpstan/phpstan-strict-rules/rules.neon
