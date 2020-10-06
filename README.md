@@ -104,7 +104,7 @@ This package is being actively developed to satisfy a very specific scenario in 
 this solution with more people struggling with this particular need.
 
 As we are basing our configuration in YAML files, XML and PHP formats are not tested right now. We would love to have 
-[feedback](issues) from you if you have any problems configuring the bundle. Unit tests should come sooner or later.
+[feedback](../../issues) from you if you have any problems configuring the bundle. Unit tests should come sooner or later.
 
 Also, we are supporting partially the configuration parameters, and not all commands are mapped.
 
