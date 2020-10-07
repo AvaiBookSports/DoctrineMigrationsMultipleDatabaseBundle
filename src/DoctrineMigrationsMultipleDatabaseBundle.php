@@ -11,4 +11,3 @@ class DoctrineMigrationsMultipleDatabaseBundle extends Bundle
         return 'DoctrineMigrationsBundle';
     }
 }
-

@@ -2,30 +2,13 @@
 
 namespace AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Command\Doctrine;
 
-use AvaiBookSports\Bundle\MigrationsMutlipleDatabase\MultipleEntityManagerLoader;
-use RuntimeException;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-/**
- * Doctrine migrations' commands are final classes. That's why we cannot extend and override them.
- */
-class MigrationsDiffCommand extends Command
+class MigrationsDiffCommand extends AbstractCommand
 {
-    /**
-     * @var MultipleEntityManagerLoader
-     */
-    private $multipleEntityManagerLoader;
-
-    public function __construct(MultipleEntityManagerLoader $multipleEntityManagerLoader)
-    {
-        parent::__construct();
-        $this->multipleEntityManagerLoader = $multipleEntityManagerLoader;
-    }
-
     protected static $defaultName = 'doctrine:migrations:diff';
 
     protected function configure(): void
@@ -40,7 +23,7 @@ The <info>%command.name%</info> command generates a migration by comparing your 
 
 EOT
             )
-            ->addOption('em', null, InputOption::VALUE_REQUIRED, 'Name of the Entity Manager to handle.', '')
+            ->addOption('em', null, InputOption::VALUE_REQUIRED, 'Name of the Entity Manager to handle.')
             ->addOption(
                 'formatted',
                 null,
@@ -71,14 +54,6 @@ EOT
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        if (strlen($input->getOption('em')) === 0) {
-            $dependencyFactories = $this->multipleEntityManagerLoader->getAllDependencyFactories();
-        } elseif (is_string($input->getOption('em'))) {
-            $dependencyFactories = [$this->multipleEntityManagerLoader->getDependencyFactory($input->getOption('em'))];
-        } else {
-            throw new RuntimeException('Invalid value for "em" option');
-        }
-
         $newInput = new ArrayInput([
             // '--namespace' => $input->getOption('namespace'),
             // '--filter-expression' => $input->getOption('filter-expression'),
@@ -90,11 +65,11 @@ EOT
 
         $newInput->setInteractive($input->isInteractive());
 
-        foreach ($dependencyFactories as $dependencyFactory) {
+        foreach ($this->getDependencyFactories(strval($input->getOption('em'))) as $dependencyFactory) {
             $otherCommand = new \Doctrine\Migrations\Tools\Console\Command\DiffCommand($dependencyFactory);
             $otherCommand->run($newInput, $output);
         }
 
-        return Command::SUCCESS;
+        return self::SUCCESS;
     }
 }

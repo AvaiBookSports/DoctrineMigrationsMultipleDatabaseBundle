@@ -13,16 +13,10 @@ services:
         public: false
         abstract: true
 
-    AvaiBookSports\Bundle\MigrationsMutlipleDatabase\MultipleEntityManagerLoader:
-        arguments:
-            - '@doctrine.migrations_multiple_database.configuration'
-            - '@Doctrine\Persistence\ManagerRegistry'
-            - '%kernel.project_dir%'
-
     doctrine_migrations.diff_command:
         class: AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Command\Doctrine\MigrationsDiffCommand
         arguments:
-            - '@AvaiBookSports\Bundle\MigrationsMutlipleDatabase\MultipleEntityManagerLoader'
+            - '@doctrine.migrations_multiple_database.configuration'
         tags: ['console.command']
 
     # TODO
@@ -34,7 +28,7 @@ services:
     doctrine_migrations.migrate_command:
         class: AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Command\Doctrine\MigrationsMigrateCommand
         arguments:
-            - '@AvaiBookSports\Bundle\MigrationsMutlipleDatabase\MultipleEntityManagerLoader'
+            - '@doctrine.migrations_multiple_database.configuration'
         tags: ['console.command']
 
     # TODO
@@ -45,5 +39,5 @@ services:
     doctrine_migrations.version_command:
         class: AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Command\Doctrine\MigrationsVersionCommand
         arguments:
-            - '@AvaiBookSports\Bundle\MigrationsMutlipleDatabase\MultipleEntityManagerLoader'
+            - '@doctrine.migrations_multiple_database.configuration'
         tags: ['console.command']

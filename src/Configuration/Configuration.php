@@ -2,26 +2,26 @@
 
 namespace AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Configuration;
 
-use Doctrine\Migrations\Configuration\Configuration as DoctrineConfiguration;
+use Doctrine\Migrations\DependencyFactory;
 
 class Configuration
 {
-    /** @var DoctrineConfiguration[] */
-    private $entityManagers = [];
+    /** @var DependencyFactory[] */
+    private $dependencyFactories = [];
 
-    public function addEntityManager(string $name, DoctrineConfiguration $entityManager): self
+    public function addDependencyFactory(string $name, DependencyFactory $entityManager): self
     {
-        $this->entityManagers[$name] = $entityManager;
+        $this->dependencyFactories[$name] = $entityManager;
 
         return $this;
     }
 
     /**
-     * @return DoctrineConfiguration[]
+     * @return DependencyFactory[]
      */
-    public function getEntityManagers(): array
+    public function getDependencyFactories(): array
     {
-        return $this->entityManagers;
+        return $this->dependencyFactories;
     }
 
     /**
@@ -29,13 +29,13 @@ class Configuration
      */
     public function getEntityManagerNames(): array
     {
-        return array_keys($this->entityManagers);
+        return array_keys($this->dependencyFactories);
     }
 
-    public function getConfigurationByEntityManagerName(string $name): ?DoctrineConfiguration
+    public function getConfigurationByEntityManagerName(string $name): ?DependencyFactory
     {
-        if (array_key_exists($name, $this->entityManagers)) {
-            return $this->entityManagers[$name];
+        if (array_key_exists($name, $this->dependencyFactories)) {
+            return $this->dependencyFactories[$name];
         }
 
         return null;

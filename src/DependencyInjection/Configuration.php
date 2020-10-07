@@ -6,19 +6,18 @@ namespace AvaiBookSports\Bundle\MigrationsMutlipleDatabase\DependencyInjection;
 
 use Doctrine\Bundle\MigrationsBundle\DependencyInjection\Configuration as DoctrineMigrationsConfiguration;
 use ReflectionClass;
-use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
- * {@inheritdocs}
+ * {@inheritdoc}
  */
 class Configuration extends DoctrineMigrationsConfiguration implements ConfigurationInterface
 {
     /**
-     * {@inheritdocs}
+     * {@inheritdoc}
      */
-    public function getConfigTreeBuilder() : TreeBuilder
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('doctrine_migrations_multiple_database');
 
@@ -46,8 +45,8 @@ class Configuration extends DoctrineMigrationsConfiguration implements Configura
                             ->defaultValue([])
                             ->validate()
                                 ->ifTrue(static function ($v) {
-                                    return count(array_filter(array_keys($v), static function (string $doctrineService) : bool {
-                                        return strpos($doctrineService, 'Doctrine\Migrations\\') !==0;
+                                    return count(array_filter(array_keys($v), static function (string $doctrineService): bool {
+                                        return 0 !== strpos($doctrineService, 'Doctrine\Migrations\\');
                                     }));
                                 })
                                 ->thenInvalid('Valid services for the DoctrineMigrationsBundle must be in the "Doctrine\Migrations" namespace.')
@@ -61,8 +60,8 @@ class Configuration extends DoctrineMigrationsConfiguration implements Configura
                             ->defaultValue([])
                             ->validate()
                                 ->ifTrue(static function ($v) {
-                                    return count(array_filter(array_keys($v), static function (string $doctrineService) : bool {
-                                        return strpos($doctrineService, 'Doctrine\Migrations\\') !==0;
+                                    return count(array_filter(array_keys($v), static function (string $doctrineService): bool {
+                                        return 0 !== strpos($doctrineService, 'Doctrine\Migrations\\');
                                     }));
                                 })
                                 ->thenInvalid('Valid callables for the DoctrineMigrationsBundle must be in the "Doctrine\Migrations" namespace.')
@@ -109,8 +108,8 @@ class Configuration extends DoctrineMigrationsConfiguration implements Configura
                             ->defaultValue(false)
                             ->info('Organize migrations mode. Possible values are: "BY_YEAR", "BY_YEAR_AND_MONTH", false')
                             ->validate()
-                                ->ifTrue(static function ($v) use ($organizeMigrationModes) {
-                                    if ($v === false) {
+                                ->ifTrue(static function ($v) use ($organizeMigrationModes): bool {
+                                    if (false === $v) {
                                         return false;
                                     }
 
@@ -125,7 +124,7 @@ class Configuration extends DoctrineMigrationsConfiguration implements Configura
                             ->validate()
                                 ->ifString()
                                     ->then(static function ($v) {
-                                        return constant('Doctrine\Migrations\Configuration\Configuration::VERSIONS_ORGANIZATION_' . strtoupper($v));
+                                        return constant('Doctrine\Migrations\Configuration\Configuration::VERSIONS_ORGANIZATION_'.strtoupper($v));
                                     })
                             ->end()
                         ->end()
@@ -138,20 +137,20 @@ class Configuration extends DoctrineMigrationsConfiguration implements Configura
     }
 
     /**
-     * Find organize migrations modes for their names
+     * Find organize migrations modes for their names.
      *
      * @return string[]
      */
-    private function getOrganizeMigrationsModes() : array
+    private function getOrganizeMigrationsModes(): array
     {
         $constPrefix = 'VERSIONS_ORGANIZATION_';
-        $prefixLen   = strlen($constPrefix);
-        $refClass    = new ReflectionClass('Doctrine\Migrations\Configuration\Configuration');
+        $prefixLen = strlen($constPrefix);
+        $refClass = new ReflectionClass('Doctrine\Migrations\Configuration\Configuration');
         $constsArray = $refClass->getConstants();
-        $namesArray  = [];
+        $namesArray = [];
 
         foreach ($constsArray as $key => $value) {
-            if (strpos($key, $constPrefix) !== 0) {
+            if (0 !== strpos($key, $constPrefix)) {
                 continue;
             }
 

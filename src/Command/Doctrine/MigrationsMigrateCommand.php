@@ -2,31 +2,14 @@
 
 namespace AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Command\Doctrine;
 
-use AvaiBookSports\Bundle\MigrationsMutlipleDatabase\MultipleEntityManagerLoader;
-use RuntimeException;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-/**
- * Doctrine migrations' commands are final classes. That's why we cannot extend and override them.
- */
-class MigrationsMigrateCommand extends Command
+class MigrationsMigrateCommand extends AbstractCommand
 {
-    /**
-     * @var MultipleEntityManagerLoader
-     */
-    private $multipleEntityManagerLoader;
-
-    public function __construct(MultipleEntityManagerLoader $multipleEntityManagerLoader)
-    {
-        parent::__construct();
-        $this->multipleEntityManagerLoader = $multipleEntityManagerLoader;
-    }
-
     protected static $defaultName = 'doctrine:migrations:migrate';
 
     protected function configure(): void
@@ -77,14 +60,6 @@ class MigrationsMigrateCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        if ($input->getOption('em') === null ) {
-            $dependencyFactories = $this->multipleEntityManagerLoader->getAllDependencyFactories();
-        } elseif (is_string($input->getOption('em'))) {
-            $dependencyFactories = [$this->multipleEntityManagerLoader->getDependencyFactory($input->getOption('em'))];
-        } else {
-            throw new RuntimeException('Invalid value for "em" option');
-        }
-
         $newInput = new ArrayInput([
             'version' => $input->getArgument('version'),
             '--write-sql' => $input->getOption('write-sql'),
@@ -96,11 +71,11 @@ class MigrationsMigrateCommand extends Command
 
         $newInput->setInteractive($input->isInteractive());
 
-        foreach ($dependencyFactories as $dependencyFactory) {
+        foreach ($this->getDependencyFactories(strval($input->getOption('em'))) as $dependencyFactory) {
             $otherCommand = new \Doctrine\Migrations\Tools\Console\Command\MigrateCommand($dependencyFactory);
             $otherCommand->run($newInput, $output);
         }
 
-        return Command::SUCCESS;
+        return self::SUCCESS;
     }
 }
