@@ -94,8 +94,14 @@ doctrine_migrations_multiple_database:
 
 ### Supported commands
 
+- `doctrine:migrations:current`
 - `doctrine:migrations:diff`
+- `doctrine:migrations:latest`
+- `doctrine:migrations:list`
 - `doctrine:migrations:migrate`
+- `doctrine:migrations:status`
+- `doctrine:migrations:sync-metadata-storage`
+- `doctrine:migrations:up-to-date`
 - `doctrine:migrations:version`
 
 ## Pitfalls

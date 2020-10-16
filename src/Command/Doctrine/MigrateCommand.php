@@ -15,7 +15,7 @@ class MigrateCommand extends AbstractCommand
     protected function configure(): void
     {
         $this
-            ->setDescription('Proxy to launch doctrine:migrations:migrate command as it would require a "configuration" option, and we can\'t define em/connection in config.')
+            ->setDescription('Execute a migration to a specified version or the latest available version.')
             ->addArgument(
                 'version',
                 InputArgument::OPTIONAL,

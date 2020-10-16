@@ -19,11 +19,33 @@ services:
             - '@doctrine.migrations_multiple_database.configuration'
         tags: ['console.command']
 
-    # TODO
+    doctrine_migrations.sync_metadata_command:
+        class: AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Command\Doctrine\SyncMetadataCommand
+        arguments:
+            - '@doctrine.migrations_multiple_database.configuration'
+        tags: ['console.command']
+
+    doctrine_migrations.versions_command:
+        class: AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Command\Doctrine\ListCommand
+        arguments:
+            - '@doctrine.migrations_multiple_database.configuration'
+        tags: ['console.command']
+
+    doctrine_migrations.current_command:
+        class: AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Command\Doctrine\CurrentCommand
+        arguments:
+            - '@doctrine.migrations_multiple_database.configuration'
+        tags: ['console.command']
+
     # doctrine_migrations.dump_schema_command:
     # doctrine_migrations.execute_command:
     # doctrine_migrations.generate_command:
-    # doctrine_migrations.latest_command:
+
+    doctrine_migrations.latest_command:
+        class: AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Command\Doctrine\LatestCommand
+        arguments:
+            - '@doctrine.migrations_multiple_database.configuration'
+        tags: ['console.command']
 
     doctrine_migrations.migrate_command:
         class: AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Command\Doctrine\MigrateCommand
@@ -31,10 +53,19 @@ services:
             - '@doctrine.migrations_multiple_database.configuration'
         tags: ['console.command']
 
-    # TODO
     # doctrine_migrations.rollup_command:
-    # doctrine_migrations.status_command:
-    # doctrine_migrations.up_to_date_command:
+
+    doctrine_migrations.status_command:
+        class: AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Command\Doctrine\StatusCommand
+        arguments:
+            - '@doctrine.migrations_multiple_database.configuration'
+        tags: ['console.command']
+
+    doctrine_migrations.up_to_date_command:
+        class: AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Command\Doctrine\UpToDateCommand
+        arguments:
+            - '@doctrine.migrations_multiple_database.configuration'
+        tags: ['console.command']
 
     doctrine_migrations.version_command:
         class: AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Command\Doctrine\VersionCommand

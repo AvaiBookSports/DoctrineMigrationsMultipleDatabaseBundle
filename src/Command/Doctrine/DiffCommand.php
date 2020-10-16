@@ -14,7 +14,7 @@ class DiffCommand extends AbstractCommand
     protected function configure(): void
     {
         $this
-            ->setDescription('Proxy to launch doctrine:migrations:diff command as it would require a "configuration" option, and we can\'t define em/connection in config.')
+            ->setDescription('Generate a migration by comparing your current database to your mapping information.')
             ->setHelp(
                 <<<EOT
 The <info>%command.name%</info> command generates a migration by comparing your current database to your mapping information:
