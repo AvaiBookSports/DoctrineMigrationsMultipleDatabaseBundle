@@ -8,7 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class MigrationsVersionCommand extends AbstractCommand
+class VersionCommand extends AbstractCommand
 {
     protected static $defaultName = 'doctrine:migrations:version';
 

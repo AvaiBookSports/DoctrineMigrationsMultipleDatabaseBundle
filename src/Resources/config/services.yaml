@@ -14,7 +14,7 @@ services:
         abstract: true
 
     doctrine_migrations.diff_command:
-        class: AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Command\Doctrine\MigrationsDiffCommand
+        class: AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Command\Doctrine\DiffCommand
         arguments:
             - '@doctrine.migrations_multiple_database.configuration'
         tags: ['console.command']
@@ -26,7 +26,7 @@ services:
     # doctrine_migrations.latest_command:
 
     doctrine_migrations.migrate_command:
-        class: AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Command\Doctrine\MigrationsMigrateCommand
+        class: AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Command\Doctrine\MigrateCommand
         arguments:
             - '@doctrine.migrations_multiple_database.configuration'
         tags: ['console.command']
@@ -37,7 +37,7 @@ services:
     # doctrine_migrations.up_to_date_command:
 
     doctrine_migrations.version_command:
-        class: AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Command\Doctrine\MigrationsVersionCommand
+        class: AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Command\Doctrine\VersionCommand
         arguments:
             - '@doctrine.migrations_multiple_database.configuration'
         tags: ['console.command']
