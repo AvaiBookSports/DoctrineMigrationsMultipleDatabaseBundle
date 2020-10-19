@@ -83,8 +83,6 @@ EOT
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $newInput = new ArrayInput([
-            // '--namespace' => $input->getOption('namespace'),
-            // '--filter-expression' => $input->getOption('filter-expression'),
             'version' => $input->getArgument('version'),
             '--add' => $input->getOption('add'),
             '--delete' => $input->getOption('delete'),

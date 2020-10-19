@@ -23,7 +23,18 @@ The <info>%command.name%</info> command generates a migration by comparing your 
 
 EOT
             )
-            ->addOption('em', null, InputOption::VALUE_REQUIRED, 'Name of the Entity Manager to handle.')
+            ->addOption(
+                'namespace',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'The namespace to use for the migration (must be in the list of configured namespaces)'
+            )
+            ->addOption(
+                'filter-expression',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'Tables which are filtered by Regular Expression.'
+            )
             ->addOption(
                 'formatted',
                 null,
@@ -49,19 +60,29 @@ EOT
                 null,
                 InputOption::VALUE_NONE,
                 'Do not throw an exception when no changes are detected.'
-            );
+            )
+            ->addOption('em', null, InputOption::VALUE_REQUIRED, 'Name of the Entity Manager to handle.')
+        ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $newInput = new ArrayInput([
-            // '--namespace' => $input->getOption('namespace'),
-            // '--filter-expression' => $input->getOption('filter-expression'),
+        $parameters = [
             '--formatted' => $input->getOption('formatted'),
             '--line-length' => $input->getOption('line-length'),
             '--check-database-platform' => $input->getOption('check-database-platform'),
             '--allow-empty-diff' => $input->getOption('allow-empty-diff'),
-        ]);
+        ];
+
+        if ('' !== (string) $input->getOption('namespace')) {
+            $parameters['--namespace'] = $input->getOption('namespace');
+        }
+
+        if ('' !== (string) $input->getOption('filter-expression')) {
+            $parameters['--filter-expression'] = $input->getOption('filter-expression');
+        }
+
+        $newInput = new ArrayInput($parameters);
 
         $newInput->setInteractive($input->isInteractive());
 

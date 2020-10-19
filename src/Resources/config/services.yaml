@@ -37,7 +37,12 @@ services:
             - '@doctrine.migrations_multiple_database.configuration'
         tags: ['console.command']
 
-    # doctrine_migrations.dump_schema_command:
+    doctrine_migrations.dump_schema_command:
+        class: AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Command\Doctrine\DumpSchemaCommand
+        arguments:
+            - '@doctrine.migrations_multiple_database.configuration'
+        tags: ['console.command']
+
     # doctrine_migrations.execute_command:
     # doctrine_migrations.generate_command:
 
