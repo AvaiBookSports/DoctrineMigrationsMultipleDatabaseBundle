@@ -12,14 +12,15 @@ class SyncMetadataCommand extends AbstractCommand
     /** @var string */
     protected static $defaultName = 'doctrine:migrations:sync-metadata-storage';
 
-    protected function configure() : void
+    protected function configure(): void
     {
         parent::configure();
 
         $this
             ->setAliases(['sync-metadata-storage'])
             ->setDescription('Ensures that the metadata storage is at the latest version.')
-            ->setHelp(<<<EOT
+            ->setHelp(
+                <<<EOT
 The <info>%command.name%</info> command updates metadata storage the latest version.
 
     <info>%command.full_name%</info>

@@ -11,7 +11,7 @@ class GenerateCommand extends AbstractCommand
 {
     protected static $defaultName = 'doctrine:migrations:generate';
 
-    protected function configure() : void
+    protected function configure(): void
     {
         $this
             ->setAliases(['generate'])
@@ -22,7 +22,8 @@ class GenerateCommand extends AbstractCommand
                 InputOption::VALUE_REQUIRED,
                 'The namespace to use for the migration (must be in the list of configured namespaces)'
             )
-            ->setHelp(<<<EOT
+            ->setHelp(
+                <<<EOT
 The <info>%command.name%</info> command generates a blank migration class:
 
     <info>%command.full_name%</info>

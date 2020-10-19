@@ -13,7 +13,7 @@ class ExecuteCommand extends AbstractCommand
     /** @var string */
     protected static $defaultName = 'doctrine:migrations:execute';
 
-    protected function configure() : void
+    protected function configure(): void
     {
         $this
             ->setAliases(['execute'])
@@ -22,7 +22,7 @@ class ExecuteCommand extends AbstractCommand
             )
             ->addArgument(
                 'versions',
-                InputArgument::REQUIRED|InputArgument::IS_ARRAY,
+                InputArgument::REQUIRED | InputArgument::IS_ARRAY,
                 'The versions to execute.',
                 null
             )
@@ -57,7 +57,8 @@ class ExecuteCommand extends AbstractCommand
                 InputOption::VALUE_NONE,
                 'Time all the queries individually.'
             )
-            ->setHelp(<<<EOT
+            ->setHelp(
+                <<<EOT
 The <info>%command.name%</info> command executes migration versions up or down manually:
 
     <info>%command.full_name% FQCN</info>

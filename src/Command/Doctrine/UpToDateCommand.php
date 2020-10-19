@@ -12,14 +12,15 @@ class UpToDateCommand extends AbstractCommand
     /** @var string */
     protected static $defaultName = 'doctrine:migrations:up-to-date';
 
-    protected function configure() : void
+    protected function configure(): void
     {
         $this
             ->setAliases(['up-to-date'])
             ->setDescription('Tells you if your schema is up-to-date.')
             ->addOption('fail-on-unregistered', 'u', InputOption::VALUE_NONE, 'Whether to fail when there are unregistered extra migrations found')
             ->addOption('list-migrations', 'l', InputOption::VALUE_NONE, 'Show a list of missing or not migrated versions.')
-            ->setHelp(<<<EOT
+            ->setHelp(
+                <<<EOT
 The <info>%command.name%</info> command tells you if your schema is up-to-date:
 
     <info>%command.full_name%</info>

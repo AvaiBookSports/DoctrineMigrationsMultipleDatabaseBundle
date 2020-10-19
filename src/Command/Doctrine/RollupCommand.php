@@ -11,12 +11,13 @@ class RollupCommand extends AbstractCommand
 {
     protected static $defaultName = 'doctrine:migrations:rollup';
 
-    protected function configure() : void
+    protected function configure(): void
     {
         $this
             ->setAliases(['rollup'])
             ->setDescription('Rollup migrations by deleting all tracked versions and insert the one version that exists.')
-            ->setHelp(<<<EOT
+            ->setHelp(
+                <<<EOT
 The <info>%command.name%</info> command rolls up migrations by deleting all tracked versions and
 inserts the one version that exists that was created with the <info>migrations:dump-schema</info> command.
 

@@ -12,12 +12,13 @@ class DumpSchemaCommand extends AbstractCommand
     /** @var string */
     protected static $defaultName = 'doctrine:migrations:dump-schema';
 
-    protected function configure() : void
+    protected function configure(): void
     {
         $this
             ->setAliases(['dump-schema'])
             ->setDescription('Dump the schema for your database to a migration.')
-            ->setHelp(<<<EOT
+            ->setHelp(
+                <<<EOT
 The <info>%command.name%</info> command dumps the schema for your database to a migration:
 
     <info>%command.full_name%</info>
@@ -40,7 +41,7 @@ EOT
             ->addOption(
                 'filter-tables',
                 null,
-                InputOption::VALUE_REQUIRED|InputOption::VALUE_IS_ARRAY,
+                InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
                 'Filter the tables to dump via Regex.'
             )
             ->addOption(
@@ -64,7 +65,7 @@ EOT
             '--line-length' => $input->getOption('line-length'),
         ];
 
-        if ($input->getOption('namespace') !== null) {
+        if (null !== $input->getOption('namespace')) {
             $arguments['--namespace'] = $input->getOption('namespace');
         }
 

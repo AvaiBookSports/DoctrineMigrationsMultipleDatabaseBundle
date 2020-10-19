@@ -12,7 +12,7 @@ class CurrentCommand extends AbstractCommand
     /** @var string */
     protected static $defaultName = 'doctrine:migrations:current';
 
-    protected function configure() : void
+    protected function configure(): void
     {
         $this
             ->setAliases(['current'])
