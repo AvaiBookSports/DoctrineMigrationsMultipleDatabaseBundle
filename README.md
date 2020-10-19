@@ -25,11 +25,7 @@ doctrine_migrations_multiple_database:
 
 ## Usage
 
-Just call the same commands as always, with the same parameters. Right now only the following commands are mapped:
-
-- `doctrine:migrations:diff`
-- `doctrine:migrations:migrate`
-- `doctrine:migrations:version`
+Just call the same commands as always, with the same parameters. See the [supported commands](#supported-commands)
 
 You can run a command for a specific entity manager adding the option `--em=example`
 
@@ -96,6 +92,7 @@ doctrine_migrations_multiple_database:
 
 - `doctrine:migrations:current`
 - `doctrine:migrations:diff`
+- `doctrine:migrations:dump-schema`
 - `doctrine:migrations:latest`
 - `doctrine:migrations:list`
 - `doctrine:migrations:migrate`
