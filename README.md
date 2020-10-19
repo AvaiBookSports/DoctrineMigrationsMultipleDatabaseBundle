@@ -31,6 +31,9 @@ You can run a command for a specific entity manager adding the option `--em=exam
 
 If you call any of the supported commands, they will work as always iterating over all the defined configurations.
 
+For those commands who has a `--namespace` option, you have to provide always the correct entity manager. 
+Otherwise, it will iterate over every entity manager, and will eventually fail. If you want to suggest a better workflow, please [open an issue](../../issues)!
+
 ### Supported configuration
 
 For now, all configuration parameters should work except `connection` and `em`, because we are already specifying which entity manager we want to connect.
@@ -93,9 +96,12 @@ doctrine_migrations_multiple_database:
 - `doctrine:migrations:current`
 - `doctrine:migrations:diff`
 - `doctrine:migrations:dump-schema`
+- `doctrine:migrations:execute`
+- `doctrine:migrations:generate`
 - `doctrine:migrations:latest`
 - `doctrine:migrations:list`
 - `doctrine:migrations:migrate`
+- `doctrine:migrations:rollup`
 - `doctrine:migrations:status`
 - `doctrine:migrations:sync-metadata-storage`
 - `doctrine:migrations:up-to-date`

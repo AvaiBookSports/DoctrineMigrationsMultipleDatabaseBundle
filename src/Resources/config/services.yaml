@@ -43,8 +43,17 @@ services:
             - '@doctrine.migrations_multiple_database.configuration'
         tags: ['console.command']
 
-    # doctrine_migrations.execute_command:
-    # doctrine_migrations.generate_command:
+    doctrine_migrations.execute_command:
+        class: AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Command\Doctrine\ExecuteCommand
+        arguments:
+            - '@doctrine.migrations_multiple_database.configuration'
+        tags: ['console.command']
+
+    doctrine_migrations.generate_command:
+        class: AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Command\Doctrine\GenerateCommand
+        arguments:
+            - '@doctrine.migrations_multiple_database.configuration'
+        tags: ['console.command']
 
     doctrine_migrations.latest_command:
         class: AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Command\Doctrine\LatestCommand
@@ -58,7 +67,11 @@ services:
             - '@doctrine.migrations_multiple_database.configuration'
         tags: ['console.command']
 
-    # doctrine_migrations.rollup_command:
+    doctrine_migrations.rollup_command:
+        class: AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Command\Doctrine\RollupCommand
+        arguments:
+            - '@doctrine.migrations_multiple_database.configuration'
+        tags: ['console.command']
 
     doctrine_migrations.status_command:
         class: AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Command\Doctrine\StatusCommand
