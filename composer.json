@@ -33,12 +33,5 @@
 		"psr-4": {
 			"AvaiBookSports\\Bundle\\MigrationsMutlipleDatabase\\": "src/"
 		}
-	},
-	"extra": {
-		"phpstan": {
-			"includes": [
-				"extension.neon"
-			]
-		}
 	}
 }
