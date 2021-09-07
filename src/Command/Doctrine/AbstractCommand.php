@@ -9,6 +9,14 @@ use Symfony\Component\Console\Command\Command;
 
 abstract class AbstractCommand extends Command
 {
+    // Overridden for compatibility with Symfony 4.4
+    // see https://tldp.org/LDP/abs/html/exitcodes.html
+    public const SUCCESS = 0;
+
+    public const FAILURE = 1;
+
+    public const INVALID = 2;
+
     /**
      * @var Configuration
      */
