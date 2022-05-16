@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AvaiBookSports\Bundle\MigrationsMutlipleDatabase\DependencyInjection;
 
+use AvaiBookSports\Bundle\MigrationsMutlipleDatabase\MultiTenant\MultiTenantRepositoryInterface;
 use Doctrine\Bundle\MigrationsBundle\DependencyInjection\DoctrineMigrationsExtension;
 use Doctrine\Migrations\Configuration\EntityManager\ExistingEntityManager;
 use Doctrine\Migrations\Configuration\Migration\ExistingConfiguration;
@@ -27,7 +28,7 @@ class DoctrineMigrationsMultipleDatabaseExtension extends DoctrineMigrationsExte
 
         $config = $this->processConfiguration($configuration, $configs);
 
-        $locator = new FileLocator(__DIR__.'/../Resources/config/');
+        $locator = new FileLocator(__DIR__ . '/../Resources/config/');
         $loader = new YamlFileLoader($container, $locator);
 
         $loader->load('services.yaml');
@@ -81,6 +82,26 @@ class DoctrineMigrationsMultipleDatabaseExtension extends DoctrineMigrationsExte
             ->getDefinition('doctrine.migrations_multiple_database.configuration')
             ->addMethodCall('addDependencyFactory', [$name, new Reference(sprintf('doctrine.migrations_multiple_database.%s_entity_manager.dependency_factory', $name))]);
 
+        if (null !== $connection['multitenant']['repository']) {
+            $implements = class_implements($connection['multitenant']['repository']);
+            if ($implements && array_key_exists(MultiTenantRepositoryInterface::class, $implements)) {
+                $container->register(
+                    sprintf('doctrine.migrations_multiple_database.%s_entity_manager.tenant_repository', $name),
+                    $connection['multitenant']['repository']
+                )->setAutowired(true)->addTag('doctrine.repository_service');
+
+                $container
+                    ->getDefinition('doctrine.migrations_multiple_database.configuration')
+                    ->addMethodCall(
+                        'addMultitenantRepository',
+                        [new Reference(sprintf(
+                            'doctrine.migrations_multiple_database.%s_entity_manager.tenant_repository',
+                            $name
+                        ))]
+                    );
+            }
+        }
+
         foreach ($connection['services'] as $doctrineId => $symfonyId) {
             $diDefinition->addMethodCall('setDefinition', [$doctrineId, new ServiceClosureArgument(new Reference($symfonyId))]);
         }
@@ -124,7 +145,7 @@ class DoctrineMigrationsMultipleDatabaseExtension extends DoctrineMigrationsExte
 
             $bundlePath = $this->getBundlePath($bundleName, $container);
 
-            return $bundlePath.substr($path, strlen('@'.$bundleName));
+            return $bundlePath . substr($path, strlen('@' . $bundleName));
         }
 
         return $path;

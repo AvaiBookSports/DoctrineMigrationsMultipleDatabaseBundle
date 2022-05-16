@@ -2,12 +2,29 @@
 
 namespace AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Configuration;
 
+use AvaiBookSports\Bundle\MigrationsMutlipleDatabase\MultiTenant\MultiTenantRepositoryInterface;
 use Doctrine\Migrations\DependencyFactory;
 
 class Configuration
 {
     /** @var DependencyFactory[] */
     private $dependencyFactories = [];
+
+    /**
+     * 
+     * @var MultiTenantRepositoryInterface
+     */
+    private $multitenantRepository = null;
+
+    public function addMultitenantRepository(MultiTenantRepositoryInterface $multitenantRepository): void
+    {
+        $this->multitenantRepository = $multitenantRepository;
+    }
+
+    public function getMultitenantRepository(): ?MultiTenantRepositoryInterface
+    {
+        return $this->multitenantRepository;
+    }
 
     public function addDependencyFactory(string $name, DependencyFactory $entityManager): self
     {

@@ -2,6 +2,7 @@
 
 namespace AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Command\Doctrine;
 
+use AvaiBookSports\Bundle\MigrationsMutlipleDatabase\MultiTenant\MultiTenantConnectionWrapperInterface;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -54,8 +55,7 @@ class MigrateCommand extends AbstractCommand
                 InputOption::VALUE_OPTIONAL,
                 'Wrap the entire migration in a transaction.',
                 false
-            )
-        ;
+            );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -72,8 +72,22 @@ class MigrateCommand extends AbstractCommand
         $newInput->setInteractive($input->isInteractive());
 
         foreach ($this->getDependencyFactories(strval($input->getOption('em'))) as $dependencyFactory) {
-            $otherCommand = new \Doctrine\Migrations\Tools\Console\Command\MigrateCommand($dependencyFactory);
-            $otherCommand->run($newInput, $output);
+            $connection = $dependencyFactory->getConnection();
+            $migrate = function () use ($newInput, $output, $dependencyFactory): void {
+                $otherCommand = new \Doctrine\Migrations\Tools\Console\Command\MigrateCommand($dependencyFactory);
+                $otherCommand->run($newInput, $output);
+            };
+            if (
+                null !== $this->getMultiTenantRepository()
+                && $connection instanceof MultiTenantConnectionWrapperInterface
+            ) {
+                foreach ($this->getMultiTenantRepository()->getTenants() as $tenant) {
+                    $connection->selectDatabase($tenant->getDatabaseName());
+                    $migrate();
+                }
+            } else {
+                $migrate();
+            }
         }
 
         return self::SUCCESS;

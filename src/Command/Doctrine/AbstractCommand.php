@@ -3,6 +3,7 @@
 namespace AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Command\Doctrine;
 
 use AvaiBookSports\Bundle\MigrationsMutlipleDatabase\Configuration\Configuration;
+use AvaiBookSports\Bundle\MigrationsMutlipleDatabase\MultiTenant\MultiTenantRepositoryInterface;
 use Doctrine\Migrations\DependencyFactory;
 use RuntimeException;
 use Symfony\Component\Console\Command\Command;
@@ -26,6 +27,11 @@ abstract class AbstractCommand extends Command
     {
         parent::__construct();
         $this->configuration = $configuration;
+    }
+
+    public function getMultiTenantRepository(): ?MultiTenantRepositoryInterface
+    {
+        return $this->configuration->getMultitenantRepository();
     }
 
     /**

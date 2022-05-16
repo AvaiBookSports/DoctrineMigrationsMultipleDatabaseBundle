@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AvaiBookSports\Bundle\MigrationsMutlipleDatabase\DependencyInjection;
 
+use AvaiBookSports\Bundle\MigrationsMutlipleDatabase\MultiTenant\MultiTenantConnectionWrapperInterface;
+use AvaiBookSports\Bundle\MigrationsMutlipleDatabase\MultiTenant\MultiTenantRepositoryInterface;
 use Doctrine\Bundle\MigrationsBundle\DependencyInjection\Configuration as DoctrineMigrationsConfiguration;
 use ReflectionClass;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -126,6 +128,44 @@ class Configuration extends DoctrineMigrationsConfiguration implements Configura
                                     ->then(static function ($v) {
                                         return constant('Doctrine\Migrations\Configuration\Configuration::VERSIONS_ORGANIZATION_'.strtoupper($v));
                                     })
+                            ->end()
+                        ->end()
+                        ->arrayNode('multitenant')
+                            ->addDefaultsIfNotSet()
+                            ->info('Enable multitenant support.')
+                            ->children()
+                                ->scalarNode('wrapper')
+                                    ->defaultValue(null)
+                                    ->cannotBeEmpty()
+                                    ->validate()
+                                        ->ifTrue(static function ($v): bool {
+                                            if (null === $v) {
+                                                return true;
+                                            } else if (is_string($v) && class_exists($v) && is_subclass_of($v, MultiTenantConnectionWrapperInterface::class)) {
+                                                return true;
+                                            }
+                            
+                                            return true;
+                                        })
+                                        ->thenInvalid('Wrapper class must be null or a valid class implementing ' . MultiTenantConnectionWrapperInterface::class . '.')
+                                    ->end()
+                                ->end()
+                                ->scalarNode('repository')
+                                    ->defaultValue(null)
+                                    ->cannotBeEmpty()
+                                    ->validate()
+                                        ->ifTrue(static function ($v): bool {
+                                            if (null === $v) {
+                                                return true;
+                                            } else if (is_string($v) && class_exists($v) && is_subclass_of($v, MultiTenantRepositoryInterface::class)) {
+                                                return true;
+                                            }
+                            
+                                            return true;
+                                        })
+                                        ->thenInvalid('Repository class must be null or a valid doctrine repository class implementing ' . MultiTenantRepositoryInterface::class . '.')
+                                    ->end()
+                                ->end()
                             ->end()
                         ->end()
                     ->end()

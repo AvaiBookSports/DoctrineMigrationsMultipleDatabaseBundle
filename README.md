@@ -89,6 +89,13 @@ doctrine_migrations_multiple_database:
             factories:
                 # Custom migration sorting service id via callables (MyCallableFactory must be a callable)
                 'Doctrine\Migrations\Version\Comparator': 'MyCallableFactory'
+
+            multitenant:
+                # Indicates that this is a multitenant entity manager. So, all tenant databases will be migrated if params 'wrapper' and 'repository' are specified (null is default)
+                wrapper: null # Must implement MultiTenantConnectionWrapperInterface and extends Doctrine\DBAL\Connection
+                repository: null # must be a valid doctrine repository and implements MultiTenantRepositoryInterface
+
+
 ```
 
 ### Supported commands
