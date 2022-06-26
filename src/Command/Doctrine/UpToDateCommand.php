@@ -9,12 +9,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class UpToDateCommand extends AbstractCommand
 {
-    /** @var string */
-    protected static $defaultName = 'doctrine:migrations:up-to-date';
 
     protected function configure(): void
     {
         $this
+            ->setName('doctrine:migrations:migrations:up-to-date')
             ->setAliases(['up-to-date'])
             ->setDescription('Tells you if your schema is up-to-date.')
             ->addOption('fail-on-unregistered', 'u', InputOption::VALUE_NONE, 'Whether to fail when there are unregistered extra migrations found')

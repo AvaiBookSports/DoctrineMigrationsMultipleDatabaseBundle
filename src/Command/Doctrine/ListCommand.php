@@ -9,12 +9,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ListCommand extends AbstractCommand
 {
-    protected static $defaultName = 'doctrine:migrations:list';
 
     protected function configure(): void
     {
         $this
-            ->setAliases(['list-migrations'])
+            ->setName('doctrine:migrations:list')
             ->setDescription('Display a list of all available migrations and their status.')
             ->setHelp(
                 <<<EOT

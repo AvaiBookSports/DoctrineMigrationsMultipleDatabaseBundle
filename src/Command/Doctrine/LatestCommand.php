@@ -9,12 +9,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class LatestCommand extends AbstractCommand
 {
-    /** @var string */
-    protected static $defaultName = 'doctrine:migrations:latest';
 
     protected function configure(): void
     {
         $this
+            ->setName('doctrine:migrations:latest')
             ->setAliases(['latest'])
             ->setDescription('Outputs the latest version')
             ->addOption('em', null, InputOption::VALUE_REQUIRED, 'Name of the Entity Manager to handle.')

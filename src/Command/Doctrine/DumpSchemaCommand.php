@@ -9,12 +9,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class DumpSchemaCommand extends AbstractCommand
 {
-    /** @var string */
-    protected static $defaultName = 'doctrine:migrations:dump-schema';
 
     protected function configure(): void
     {
         $this
+            ->setName('doctrine:migrations:dump-schema')
             ->setAliases(['dump-schema'])
             ->setDescription('Dump the schema for your database to a migration.')
             ->setHelp(

@@ -10,12 +10,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ExecuteCommand extends AbstractCommand
 {
-    /** @var string */
-    protected static $defaultName = 'doctrine:migrations:execute';
 
     protected function configure(): void
     {
         $this
+            ->setName('doctrine:migrations:execute')
             ->setAliases(['execute'])
             ->setDescription(
                 'Execute one or more migration versions up or down manually.'

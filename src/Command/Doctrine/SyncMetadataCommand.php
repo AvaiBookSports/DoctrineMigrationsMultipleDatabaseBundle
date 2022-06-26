@@ -9,14 +9,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class SyncMetadataCommand extends AbstractCommand
 {
-    /** @var string */
-    protected static $defaultName = 'doctrine:migrations:sync-metadata-storage';
 
     protected function configure(): void
     {
         parent::configure();
 
         $this
+            ->setName('doctrine:migrations:sync-metadata-storage')
             ->setAliases(['sync-metadata-storage'])
             ->setDescription('Ensures that the metadata storage is at the latest version.')
             ->setHelp(

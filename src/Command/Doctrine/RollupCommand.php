@@ -9,11 +9,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class RollupCommand extends AbstractCommand
 {
-    protected static $defaultName = 'doctrine:migrations:rollup';
 
     protected function configure(): void
     {
         $this
+            ->setName('doctrine:migrations:rollup')
             ->setAliases(['rollup'])
             ->setDescription('Rollup migrations by deleting all tracked versions and insert the one version that exists.')
             ->setHelp(

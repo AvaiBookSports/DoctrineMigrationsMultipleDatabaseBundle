@@ -10,11 +10,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class MigrateCommand extends AbstractCommand
 {
-    protected static $defaultName = 'doctrine:migrations:migrate';
 
     protected function configure(): void
     {
         $this
+            ->setName('doctrine:migrations:migrate')
             ->setDescription('Execute a migration to a specified version or the latest available version.')
             ->addArgument(
                 'version',

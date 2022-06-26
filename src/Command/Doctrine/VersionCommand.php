@@ -10,11 +10,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class VersionCommand extends AbstractCommand
 {
-    protected static $defaultName = 'doctrine:migrations:version';
 
     protected function configure(): void
     {
         $this
+            ->setName('doctrine:migrations:version')
             ->setDescription('Manually add and delete migration versions from the version table.')
             ->addOption('em', null, InputOption::VALUE_REQUIRED, 'Name of the Entity Manager to handle.')
             ->addArgument(

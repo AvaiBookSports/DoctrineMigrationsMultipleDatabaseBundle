@@ -9,11 +9,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class DiffCommand extends AbstractCommand
 {
-    protected static $defaultName = 'doctrine:migrations:diff';
 
     protected function configure(): void
     {
         $this
+            ->setName('doctrine:migrations:diff')
             ->setDescription('Generate a migration by comparing your current database to your mapping information.')
             ->setHelp(
                 <<<EOT
