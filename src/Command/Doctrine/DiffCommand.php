@@ -61,6 +61,12 @@ EOT
                 InputOption::VALUE_NONE,
                 'Do not throw an exception when no changes are detected.'
             )
+            ->addOption(
+                'from-empty-schema',
+                null,
+                InputOption::VALUE_NONE,
+                'Generate a full migration as if the current database was empty.'
+            )
             ->addOption('em', null, InputOption::VALUE_REQUIRED, 'Name of the Entity Manager to handle.')
         ;
     }
@@ -72,6 +78,7 @@ EOT
             '--line-length' => $input->getOption('line-length'),
             '--check-database-platform' => $input->getOption('check-database-platform'),
             '--allow-empty-diff' => $input->getOption('allow-empty-diff'),
+            '--from-empty-schema' => $input->getOption('from-empty-schema'),
         ];
 
         if ('' !== (string) $input->getOption('namespace')) {
