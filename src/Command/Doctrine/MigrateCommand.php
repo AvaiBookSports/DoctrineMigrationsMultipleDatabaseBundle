@@ -10,8 +10,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class MigrateCommand extends AbstractCommand
 {
-    protected static $defaultName = 'doctrine:migrations:migrate';
-
     protected function configure(): void
     {
         $this

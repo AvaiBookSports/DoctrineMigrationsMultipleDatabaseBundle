@@ -10,8 +10,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class VersionCommand extends AbstractCommand
 {
-    protected static $defaultName = 'doctrine:migrations:version';
-
     protected function configure(): void
     {
         $this

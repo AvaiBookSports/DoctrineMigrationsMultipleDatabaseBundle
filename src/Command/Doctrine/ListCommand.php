@@ -9,8 +9,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ListCommand extends AbstractCommand
 {
-    protected static $defaultName = 'doctrine:migrations:list';
-
     protected function configure(): void
     {
         $this

@@ -9,9 +9,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class SyncMetadataCommand extends AbstractCommand
 {
-    /** @var string */
-    protected static $defaultName = 'doctrine:migrations:sync-metadata-storage';
-
     protected function configure(): void
     {
         parent::configure();

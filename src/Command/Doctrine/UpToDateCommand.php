@@ -9,9 +9,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class UpToDateCommand extends AbstractCommand
 {
-    /** @var string */
-    protected static $defaultName = 'doctrine:migrations:up-to-date';
-
     protected function configure(): void
     {
         $this

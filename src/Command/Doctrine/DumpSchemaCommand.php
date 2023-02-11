@@ -9,9 +9,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class DumpSchemaCommand extends AbstractCommand
 {
-    /** @var string */
-    protected static $defaultName = 'doctrine:migrations:dump-schema';
-
     protected function configure(): void
     {
         $this

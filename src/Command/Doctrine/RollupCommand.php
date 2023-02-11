@@ -9,8 +9,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class RollupCommand extends AbstractCommand
 {
-    protected static $defaultName = 'doctrine:migrations:rollup';
-
     protected function configure(): void
     {
         $this
