@@ -9,8 +9,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class DiffCommand extends AbstractCommand
 {
-    protected static $defaultName = 'doctrine:migrations:diff';
-
     protected function configure(): void
     {
         $this

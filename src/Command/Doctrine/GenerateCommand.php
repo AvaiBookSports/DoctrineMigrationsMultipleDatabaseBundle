@@ -9,8 +9,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class GenerateCommand extends AbstractCommand
 {
-    protected static $defaultName = 'doctrine:migrations:generate';
-
     protected function configure(): void
     {
         $this

@@ -9,9 +9,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class CurrentCommand extends AbstractCommand
 {
-    /** @var string */
-    protected static $defaultName = 'doctrine:migrations:current';
-
     protected function configure(): void
     {
         $this
