@@ -3,7 +3,7 @@
 	"type": "symfony-bundle",
 	"description": "Symfony DoctrineMigrationsMultipleDatabaseBundle",
 	"keywords": ["DBAL", "Migrations", "Schema", "Multiple databases"],
-	"license": "GPL-3.0-only",
+	"license": "MIT",
 	"authors": [
 		{
 			"name": "Pablo Largo",
