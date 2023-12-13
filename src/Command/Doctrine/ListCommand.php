@@ -34,7 +34,7 @@ EOT
         $newInput->setInteractive($input->isInteractive());
 
         foreach ($this->getDependencyFactories(strval($input->getOption('em'))) as $dependencyFactory) {
-            $otherCommand = new \Doctrine\Migrations\Tools\Console\Command\CurrentCommand($dependencyFactory);
+            $otherCommand = new \Doctrine\Migrations\Tools\Console\Command\ListCommand($dependencyFactory);
             $otherCommand->run($newInput, $output);
         }
 
