@@ -67,12 +67,16 @@ EOT
         }
 
         $newInput = new ArrayInput($arguments);
-
         $newInput->setInteractive($input->isInteractive());
+        $em = (string)$input->getOption('em');
 
-        foreach ($this->getDependencyFactories(strval($input->getOption('em'))) as $dependencyFactory) {
+        foreach ($this->getDependencyFactories($em) as $emName => $dependencyFactory) {
+            if ('' === $em) {
+                $output->writeln(sprintf('<info>EntityManager:</info> %s', $emName));
+            }
             $otherCommand = new \Doctrine\Migrations\Tools\Console\Command\DumpSchemaCommand($dependencyFactory);
             $otherCommand->run($newInput, $output);
+            $output->writeln('');
         }
 
         return self::SUCCESS;
